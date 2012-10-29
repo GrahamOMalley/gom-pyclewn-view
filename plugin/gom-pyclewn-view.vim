@@ -2,7 +2,7 @@
 
 " TODO: integrate Valgrind somehow, keymap, buffer plugin?
 
-function! GomPyclewnView#PyDebugToggle()
+function! PyDebugToggle()
     "Toggle the flag (or set it if it doesn't yet exist)...
     let w:python_debug_view_on = exists('w:python_debug_view_on') ? !w:python_debug_view_on : 0
 
@@ -17,7 +17,7 @@ endfunction
 " I'll cheat a little in this function; as I have forced a save/load of the
 " .proj file everytime a breakpoint is set/cleared, I can use this file to
 " check if a line should be break or cleared
-function! GomPyclewnView#PyclewnBreakPointToggle()
+function! PyclewnBreakPointToggle()
 
     " read our .proj file, get list of lines containing bps
     "diff against current line
@@ -42,22 +42,23 @@ function! GomPyclewnView#PyclewnBreakPointToggle()
         :exe "Cproject .proj"
     endif
 endfunction
-command! PyclewnBreakPointToggle call GomPyclewnView#PyclewnBreakPointToggle()
+"command! PyclewnBreakPointToggle call PyclewnBreakPointToggle()
+command! -nargs=0 -bar PyclewnBreakPointToggle call s:PyclewnBreakPointToggle()
 
-function! GomPyclewnView#GomDebugToggle()
+function! PyclewnDebugToggle()
     "Toggle the flag (or set it if it doesn't yet exist)...
     let g:gom_debug_view_on = exists('g:gom_debug_view_on') ? !g:gom_debug_view_on : 0
 
     if g:gom_debug_view_on
-        call GomDebugStop()
+        call PyclewnDebugStop()
     else
-        call GomDebugStart()
+        call PyclewnDebugStart()
     endif
 endfunction
-command! GDToggle call GomPyclewnView#GomDebugToggle()
+command! PyclewnDebugToggle call PyclewnDebugToggle()
 
 " shut down debugger
-function! GomPyclewnView#GomDebugStop()
+function! PyclewnDebugStop()
     :wincmd k
     :wincmd h
     :only
@@ -75,7 +76,7 @@ endfunction
 
 " function to start debugger, rearrange window layout with watch window and
 " gdb console
-function! GomPyclewnView#GomDebugStart()
+function! PyclewnDebugStart()
     " close Tlist if open
 
     :execute "TlistClose"
