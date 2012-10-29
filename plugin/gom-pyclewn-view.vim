@@ -106,6 +106,9 @@ endfunction
 
 function! PyclewnLocalsToggle()
     let g:pyclewn_locals_on = exists('g:pyclewn_locals_on') ? !g:pyclewn_locals_on : 0
+    if g:pyclewn_locals_on 
+        :exe "Cinfo locals"
+    endif
 endfunction
 command! PyclewnLocalsToggle call PyclewnLocalsToggle()
 
