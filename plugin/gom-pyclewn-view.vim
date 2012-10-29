@@ -1,4 +1,9 @@
-
+" File: gom-pyclewn-view.vim
+" Author: Graham O' Malley
+" Description: Some usefull functions to toggle pyclewn debugger (with syntax
+" highlighted watch window and dgb console) as well as options to control step
+" output (toggle printing locals when stepping)
+" Last Modified: October 29, 2012
 
 " TODO: integrate Valgrind somehow, keymap, buffer plugin?
 
@@ -42,7 +47,6 @@ function! PyclewnBreakPointToggle()
         :exe "Cproject .proj"
     endif
 endfunction
-"command! PyclewnBreakPointToggle call PyclewnBreakPointToggle()
 command! PyclewnBreakPointToggle call PyclewnBreakPointToggle()
 
 function! PyclewnDebugToggle()
