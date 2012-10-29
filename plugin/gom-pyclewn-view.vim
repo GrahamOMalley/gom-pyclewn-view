@@ -43,7 +43,7 @@ function! PyclewnBreakPointToggle()
     endif
 endfunction
 "command! PyclewnBreakPointToggle call PyclewnBreakPointToggle()
-command! -nargs=0 -bar PyclewnBreakPointToggle call s:PyclewnBreakPointToggle()
+command! PyclewnBreakPointToggle call PyclewnBreakPointToggle()
 
 function! PyclewnDebugToggle()
     "Toggle the flag (or set it if it doesn't yet exist)...
