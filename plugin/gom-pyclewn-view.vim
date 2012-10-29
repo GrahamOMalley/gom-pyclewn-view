@@ -103,3 +103,26 @@ function! PyclewnDebugStart()
     :wincmd h
     " return to main window
 endfunction
+
+function! PyclewnLocalsToggle()
+    let g:pyclewn_locals_on = exists('g:pyclewn_locals_on') ? !g:pyclewn_locals_on : 0
+endfunction
+command! PyclewnLocalsToggle call PyclewnLocalsToggle()
+
+function! PyclewnNext()
+    :exe "Cnext"
+    let g:pyclewn_locals_on = exists('g:pyclewn_locals_on') ? g:pyclewn_locals_on : 0
+    if g:pyclewn_locals_on 
+        :exe "Cinfo locals"
+    endif
+endfunction
+command! PyclewnNext call PyclewnNext()
+
+function! PyclewnStep()
+    :exe "Cstep"
+    let g:pyclewn_locals_on = exists('g:pyclewn_locals_on') ? g:pyclewn_locals_on : 0
+    if g:pyclewn_locals_on 
+        :exe "Cinfo locals"
+    endif
+endfunction
+command! PyclewnStep call PyclewnStep()
