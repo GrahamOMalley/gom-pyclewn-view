@@ -84,16 +84,26 @@ function! PyclewnDebugStart()
     silent! :execute "Cdbgvar"
     :execute "only"
 
-    " layout 1
+    " layout1 
+
     " console
-    :botright 20split (clewn)_console
-    :set syntax=cpp
-    :wincmd k
-    " TODO  vsplit sizes look different depending on terminal and screen res,
-    " this could be a plugin var
-    :rightbelow 190vsplit (clewn)_dbgvar
+    :rightbelow 220vsplit (clewn)_console
     :set syntax=cpp
     :wincmd h
+
+    " watch
+    :rightbelow 20split (clewn)_dbgvar
+    :set syntax=cpp
+    :wincmd k
+
+    " layout 2
+    " console
+    ":set syntax=cpp
+    ":wincmd k
+    " TODO  vsplit sizes look different depending on terminal and screen res,
+    ":rightbelow 190vsplit (clewn)_dbgvar
+    ":set syntax=cpp
+    ":wincmd h
     " return to main window
 endfunction
 
@@ -125,12 +135,20 @@ function! PyclewnStep()
 endfunction
 command! PyclewnStep call PyclewnStep()
 
+function! PyclewnContinue()
+    :exe "Ccontinue"
+    let g:pyclewn_locals_on = exists('g:pyclewn_locals_on') ? g:pyclewn_locals_on : 0
+    if g:pyclewn_locals_on 
+        :exe "Cinfo locals"
+    endif
+endfunction
+command! PyclewnContinue call PyclewnContinue()
+
 " I like having Tlist open automatically for certain filetypes, but it looks
 " weird in debugger layout and I don't really need it
 function! PyclewnToggleTlist()
     let g:gom_debug_view_on = exists('g:gom_debug_view_on') ? g:gom_debug_view_on : 0
     if !g:gom_debug_view_on
-        :echo "debug mode is OFF, opening tlist for file"
         :execute "TlistOpen"
         :wincmd l
     endif
